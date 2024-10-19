@@ -1,7 +1,7 @@
 import { IconButton } from "@mui/material";
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
-export const CustomNextArrow = ({ onclick }: { onclick?: () => void }) => {
+export const NextArrow = ({ onclick }: { onclick?: () => void }) => {
     return (
         <IconButton
             onClick={onclick}
