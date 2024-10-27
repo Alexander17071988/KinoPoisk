@@ -1,35 +1,30 @@
-import { useGetMoviesQuery } from "@widgets/Slice/apiSlice";
-import movieImages from "@entities/MovieCarousel/model/moviesImages";
-import { Movies } from "@entities/MovieCarousel/model/movies";
+import { useGetItemsQuery, useGetItemByIdQuery } from "@widgets/MovieCarousel/api/apiMovie";
 import { Card, CardMedia, CardContent, Typography } from "@mui/material";
-import UniversalCarousel from "@shared/ui/universalCarousel";
+import { Movies } from "@entities/MovieCarousel/model/movies";
+import moviesImages from '@entities/MovieCarousel/model/moviesImages';
 
 const MoviesCarousel: React.FC = () => {
-    const { data: movies, isLoading } = useGetMoviesQuery('movies');
+    const { data: movies = [], isLoading } = useGetItemsQuery();
 
-    const renderMovie = (movie: Movies) => (
-        <Card key={movie.episode_id} style={{ margin: '0 5px' }}>
+    const renderMovie = (movies: Movies) => (
+        <Card key={movies.episode_id} style={{ margin: '0 5px' }}>
             <CardMedia
-                component="img"
-                height="300"
-                image={movieImages[movie.title] || 'https://via.placeholder.com/300'}
-                alt={movie.title}
+                component='img'
+                height='300'
+                image={moviesImages[movies.title] || 'https://via.placeholder.com/300'}
+                alt={movies.title}
             />
             <CardContent>
-                <Typography variant="h6">{movie.title}</Typography>
+                <Typography variant="h6">{movies.title}</Typography>
                 <Typography variant="body2" color="textSecondary">
-                    Director: {movie.director}
+                    Режиссер: {movies.director}
                 </Typography>
             </CardContent>
         </Card>
     );
 
     return (
-        <UniversalCarousel
-            data={movies}
-            isLoading={isLoading}
-            renderItem={renderMovie}
-        />
+        <></>
     );
 };
 
