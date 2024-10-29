@@ -1,10 +1,12 @@
 import React from "react";
 import MovieCarousel from '@widgets/MovieCarousel/ui/MovieCarousel';
-import MatrixCarousel from '@widgets/MatrixCarousel/ui/MatrixCarousel';
+import FavoriteMovies from '@widgets/FavoriteMovies/FavoriteMovies';
 
 const Home: React.FC = () => {
-    return <><MovieCarousel />
-        <MatrixCarousel /></>
+    return <>
+        <MovieCarousel />
+        <FavoriteMovies />
+    </>
 };
 
 export default Home;

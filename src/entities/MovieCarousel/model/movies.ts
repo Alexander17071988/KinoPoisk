@@ -3,3 +3,7 @@ export interface Movies {
     director: string,
     episode_id: number,
 };
+
+export interface MoviesResponse {
+    results: Movies[];
+}
