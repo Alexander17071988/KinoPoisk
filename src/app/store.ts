@@ -1,14 +1,18 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { apiSlice } from '@widgets/Slice/apiSlice';
+import apiMatrix from '@widgets/MatrixCarousel/api/apiMatrix';
+import apiMovie from '@widgets/MovieCarousel/api/apiMovie';
 
-
-export const store = configureStore({
+const store = configureStore({
     reducer: {
-        [apiSlice.reducerPath]: apiSlice.reducer,
+        [apiMatrix.reducerPath]: apiMatrix.reducer,
+        [apiMovie.reducerPath]: apiMovie.reducer,
     },
     middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware().concat(apiSlice.middleware),
+        getDefaultMiddleware().concat(apiMatrix.middleware).concat(apiMovie.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
+
+export default store;
+
