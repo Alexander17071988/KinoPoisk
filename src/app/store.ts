@@ -1,14 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit';
-import apiMatrix from '@widgets/MatrixCarousel/api/apiMatrix';
 import apiMovie from '@widgets/MovieCarousel/api/apiMovie';
+import favoritesReducer from '@features/favoriteMovies/ui/favoriteMoviesSlice';
 
 const store = configureStore({
     reducer: {
-        [apiMatrix.reducerPath]: apiMatrix.reducer,
+        favorites: favoritesReducer,
         [apiMovie.reducerPath]: apiMovie.reducer,
     },
     middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware().concat(apiMatrix.middleware).concat(apiMovie.middleware),
+        getDefaultMiddleware().concat(apiMovie.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;
