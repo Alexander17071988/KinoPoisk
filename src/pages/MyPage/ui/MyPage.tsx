@@ -1,7 +1,9 @@
 import React from "react";
+import FavoriteMovies from "@widgets/FavoriteMovies/FavoriteMovies";
+
 
 const MyPage: React.FC = () => {
-    return <h1>Моя страница</h1>
+    return <FavoriteMovies />
 };
 
 export default MyPage;

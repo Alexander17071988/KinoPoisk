@@ -12,7 +12,7 @@ const Header: React.FC = () => {
                 </Typography>
                 { }
                 <Button component={Link} to="/" color="inherit">Главное</Button>
-                <Button component={Link} to="/my" color="inherit">Мое</Button>
+                <Button component={Link} to="/my" color="inherit">Избранное</Button>
                 <Button component={Link} to='/subscriptions' color="inherit">Подписки</Button>
                 <Button component={Link} to='/channels' color="inherit">Каналы</Button>
                 <Button component={Link} to='/sport' color="inherit">Спорт</Button>

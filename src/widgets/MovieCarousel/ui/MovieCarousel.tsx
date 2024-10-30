@@ -1,5 +1,5 @@
 import { useGetItemsQuery } from "@widgets/MovieCarousel/api/apiMovie";
-import { Card, CardMedia, CardContent, Typography, Button } from "@mui/material";
+import { Card, CardMedia, CardContent, Typography, IconButton } from "@mui/material";
 import moviesImages from '@entities/MovieCarousel/model/moviesImages';
 import Slider from 'react-slick';
 import { settings } from '@features/MovieSlider/lib/const/settingsSlider';
@@ -8,6 +8,8 @@ import { Movies } from "@entities/MovieCarousel/model/movies";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from '@app/store';
 import { addFavorite, removeFavorite } from "@features/favoriteMovies/ui/favoriteMoviesSlice";
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 const MoviesCarousel: React.FC = () => {
     const dispatch = useDispatch();
@@ -53,7 +55,7 @@ const MoviesCarousel: React.FC = () => {
                             <Typography variant="body2" color="textSecondary">
                                 Режиссер: {movies.director}
                             </Typography>
-                            <Button onClick={() => handleFavoriteClick(movies)}>{isFavorite(movies.episode_id) ? 'Сердечко красное' : 'Сердечко серое'}</Button>
+                            <IconButton onClick={() => handleFavoriteClick(movies)}>{isFavorite(movies.episode_id) ? <FavoriteIcon /> : <FavoriteBorderIcon />}</IconButton>
                         </CardContent>
                     </Card>
                 ))}
