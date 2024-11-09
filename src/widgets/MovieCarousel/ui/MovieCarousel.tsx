@@ -1,5 +1,5 @@
 import { useGetItemsQuery } from "@widgets/MovieCarousel/api/apiMovie";
-import { Card, CardMedia, CardContent, Typography, IconButton } from "@mui/material";
+import { Card, CardMedia, CardContent, Typography, IconButton, TextField } from "@mui/material";
 import moviesImages from '@entities/MovieCarousel/model/moviesImages';
 import Slider from 'react-slick';
 import { settings } from '@features/MovieSlider/lib/const/settingsSlider';
@@ -10,11 +10,14 @@ import { RootState } from '@app/store';
 import { addFavorite, removeFavorite } from "@features/favoriteMovies/ui/favoriteMoviesSlice";
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import React, { useState } from "react";
 
 const MoviesCarousel: React.FC = () => {
     const dispatch = useDispatch();
     const { data, isLoading, error } = useGetItemsQuery('movies');
     const favorites = useSelector((state: RootState) => state.favorites.favorites);
+
+    const [searchQuery, setSearchQuery] = useState<string>('');
 
     const isFavorite = (movieId: number) => favorites.some((movie) => movie.episode_id === movieId);
 
@@ -26,6 +29,14 @@ const MoviesCarousel: React.FC = () => {
         }
     }
 
+    const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setSearchQuery(event.target.value);
+    };
+
+    const filteredMovies = data?.results.filter(movie =>
+        movie.title.toLowerCase().includes(searchQuery.toLowerCase())
+    ) || [];
+
     if (isLoading) {
         return <div>Загрузка</div>
     };
@@ -34,8 +45,26 @@ const MoviesCarousel: React.FC = () => {
         return <div>Произошла ошибка</div>
     };
 
+    const slidesToShow = filteredMovies.length < 1 ? 1 : settings.slidesToShow;
+
     return (
         <div style={carouselStyles}>
+            <TextField
+                label='Поиск по названию'
+                variant="outlined"
+                fullWidth
+                value={searchQuery}
+                onChange={handleSearchChange}
+                margin="normal"
+                sx={{
+                    backgroundColor: '#fff', '& .MuiInputBase-root': {
+                        color: '#000',
+                    },
+                    '& .MuiOutlinedInput-notchedOutline': {
+                        borderColor: '#fff',
+                    }
+                }}
+            />
             <Slider dots={settings.dots}
                 infinite={settings.infinite}
                 speed={settings.speed}
@@ -43,7 +72,7 @@ const MoviesCarousel: React.FC = () => {
                 slidesToScroll={settings.slidesToScroll}
                 responsive={settings.responsive}
             >
-                {data.results.map((movies: Movies) => (
+                {filteredMovies.map((movies: Movies) => (
                     <Card key={movies.episode_id} style={{ margin: '0 5px' }}>
                         <CardMedia
                             component='img'
